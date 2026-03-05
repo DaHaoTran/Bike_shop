@@ -1,0 +1,35 @@
+.nav {
+    font-size: 23px;
+}
+
+.nav_link {
+    color: black !important;
+    margin-right: 5vw;
+}
+
+.show_widget {
+    width: 65px;
+    height: 65px;
+    position: fixed;
+    right: 2%;
+    bottom: 3%;
+    z-index: 2;
+    background-color: #0048FF;
+    border-radius: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.footer {
+    height: 100px;
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    z-index: 1;
+    display: flex;
+    color: white;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+}
