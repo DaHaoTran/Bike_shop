@@ -9,7 +9,7 @@ export default function BikeType() {
         <div className={styles.type_background}></div>
         <h4 className={styles.type_name}><strong>Type name</strong></h4>
         <Image
-            className='position-relative'
+            className={`position-relative ${styles.type_image}`}
             src={image} 
             width={350}
             alt='bike image' />
