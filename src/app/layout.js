@@ -21,7 +21,7 @@ export const metadata = {
 var pageState = ["opening", "error"]
 
 export default function RootLayout({ children }) {
-  var currentPageState = pageState[1]
+  var currentPageState = pageState[0]
   
   if(currentPageState == null) return;
   return (
