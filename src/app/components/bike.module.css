@@ -1,0 +1,17 @@
+.bike_container {
+    background-color: lightgray;
+    padding: 10px;
+    margin-bottom: 200px;
+    width: 300px;
+    height: 410px;
+}
+
+.bike_title {
+    width: 75%;
+    font-size: 23px;
+}
+
+.bike_image {
+    width: 300px;
+    height: 260px;
+}
