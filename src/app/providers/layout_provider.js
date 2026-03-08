@@ -50,7 +50,24 @@ export default function LayoutProvider({ children }) {
         });
       }
     });
-    }
+  }
+  const onFirmSelectionClick = async () => {
+    const { value: fruit } = await Swal.fire({
+      title: "Lọc thương hiệu",
+      input: "select",
+      inputOptions: {
+        yamaha: 'Yamaha',
+      },
+      inputPlaceholder: "Chọn thương hiệu xe",
+      showCancelButton: true,
+      inputValidator: (value) => {
+        return new Promise((resolve) => {
+          resolve()
+          router.push(`/products?str=${value}`)
+        });
+      }
+    });
+  }
 
   return (
     <div>
@@ -67,7 +84,7 @@ export default function LayoutProvider({ children }) {
                 <NavLink className={styles.nav_link} onClick={x => onPriceSelectionClick()}>Trong tầm giá</NavLink>
               </NavItem>
               <NavItem>
-                <NavLink className={styles.nav_link} href="/">Tên sản phẩm</NavLink>
+                <NavLink className={styles.nav_link} onClick={x => onFirmSelectionClick()}>Tên sản phẩm</NavLink>
               </NavItem>
               <NavItem>
                 <NavLink className={styles.nav_link} href="#bike_types">Loại xe</NavLink>
