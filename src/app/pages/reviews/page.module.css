@@ -1,0 +1,32 @@
+.reviews_container {
+    margin: 100px 20px 150px 20px;
+}
+
+.reviews_image_container {
+    position: absolute;
+    top: 12vw;
+    right: -20vw;
+}
+
+.reviews_bike_image {
+    width: 45vw;
+    height: 40vw;
+}
+
+.reviews_title {
+    font-size: 65px;
+    font-weight: 600;
+}
+
+.reviews_content {
+    padding: 25px;
+    width: 85vw;
+    height: 650px;
+    background-color: lightgray;
+}
+
+.reviews_sign_image {
+    width: 200px;
+    height: 180px;
+    position: relative;
+}
