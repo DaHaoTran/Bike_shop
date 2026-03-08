@@ -1,0 +1,46 @@
+.line {
+    margin-top: 80px;
+}
+
+.color_pickers {
+    position: absolute;
+    left: 8vw;
+    top: 130px;
+    display: grid;
+    justify-content: center;
+}
+
+.details_container {
+    margin: 0px 15vw 200px 15vw;
+}
+
+.image {
+    width: 500px;
+    height: 400px;
+}
+
+.image_container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    background-color: lightgray;
+}
+
+.title_bikename {
+    font-size: 45px;
+    font-weight: 600;
+}
+
+.title_bikeprice {
+    font-size: 35px;
+}
+
+.title_orderbutton {
+    width: 100%;
+    margin-top: 6.7vw;
+}
+
+.title_headers {
+    font-size: 45px;
+    font-weight: 600;
+}

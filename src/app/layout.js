@@ -18,11 +18,18 @@ export const metadata = {
   description: "small next web",
 };
 
+var pageState = ["opening", "error"]
+
 export default function RootLayout({ children }) {
+  var currentPageState = pageState[0]
+  
+  if(currentPageState == null) return;
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        <LayoutProvider>{children}</LayoutProvider>
+        {currentPageState == pageState[0] ? (
+          <LayoutProvider>{children}</LayoutProvider>
+        ) : children}
       </body>
     </html>
   );
