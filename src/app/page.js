@@ -13,7 +13,7 @@ export default function Home() {
       </div>
       {/* End Carousel section */}
       {/* Types section */}
-      <div className="mt-4">
+      <div className="mt-4" id="bike_types">
         <h1 className="my-4 text-center"><strong>Khám phá sản phẩm</strong></h1>
         <div className="row">
           {Array.from({ length: 5 }).map((_, index) => (

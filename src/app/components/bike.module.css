@@ -15,3 +15,18 @@
     width: 300px;
     height: 260px;
 }
+
+.bike_image:hover {
+    animation-name: scale_in;
+    animation-duration: 1.5s;
+    animation-timing-function: ease;
+}
+
+@keyframes scale_in {
+    from {
+        scale: 1;
+    }
+    to {
+        scale: 1.3;
+    }
+}

@@ -16,11 +16,58 @@ import {
   NavbarText,
 } from 'reactstrap';
 import { IoChatbubbleOutline } from "react-icons/io5";
+import Swal from 'sweetalert2'
+import { useRouter } from 'next/navigation';
 
 export default function LayoutProvider({ children }) {
   const [isOpen, setIsOpen] = useState(false);
+  const router = useRouter();
 
   const toggle = () => setIsOpen(!isOpen);
+
+  const onPriceSelectionClick = async () => {
+    const { value: fruit } = await Swal.fire({
+      title: "Lọc khoảng giá",
+      input: "select",
+      inputOptions: {
+        from0to50: 'Từ 0 - 50 tr',
+        from50to100: 'Từ 50 - 100 tr',
+        from100to150: 'Từ 100 - 150 tr',
+        from150to300: 'Từ 150 - 300 tr',
+        from300to450: 'Từ 300 - 450 tr',
+        from450to600: 'Từ 450 - 600 tr',
+      },
+      inputPlaceholder: "Chọn lọc giá",
+      showCancelButton: true,
+      inputValidator: (value) => {
+        return new Promise((resolve) => {
+          if (value === "from0to50" || value === "from50to100") {
+            resolve();
+            router.push(`/products?str=${value}`)
+          } else {
+            resolve("Sorry, not available now !");
+          }
+        });
+      }
+    });
+  }
+  const onFirmSelectionClick = async () => {
+    const { value: fruit } = await Swal.fire({
+      title: "Lọc thương hiệu",
+      input: "select",
+      inputOptions: {
+        yamaha: 'Yamaha',
+      },
+      inputPlaceholder: "Chọn thương hiệu xe",
+      showCancelButton: true,
+      inputValidator: (value) => {
+        return new Promise((resolve) => {
+          resolve()
+          router.push(`/products?str=${value}`)
+        });
+      }
+    });
+  }
 
   return (
     <div>
@@ -31,15 +78,18 @@ export default function LayoutProvider({ children }) {
           <Collapse isOpen={isOpen} navbar>
             <Nav className="me-auto w-100 d-flex justify-content-center" navbar>
               <NavItem>
-                <NavLink className={styles.nav_link} href="/">Giới thiệu</NavLink>
+                <NavLink className={styles.nav_link} href="/pages/reviews">Giới thiệu</NavLink>
               </NavItem>
-               <NavItem>
-                <NavLink className={styles.nav_link} href="/">Trong tầm giá</NavLink>
+              <NavItem>
+                <NavLink className={styles.nav_link} onClick={x => onPriceSelectionClick()}>Trong tầm giá</NavLink>
               </NavItem>
-               <NavItem>
-                <NavLink className={styles.nav_link} href="/">Tên sản phẩm</NavLink>
+              <NavItem>
+                <NavLink className={styles.nav_link} onClick={x => onFirmSelectionClick()}>Tên sản phẩm</NavLink>
               </NavItem>
-               <NavItem>
+              <NavItem>
+                <NavLink className={styles.nav_link} href="#bike_types">Loại xe</NavLink>
+              </NavItem>
+              <NavItem>
                 <NavLink className={styles.nav_link} href="/">Giỏ hàng</NavLink>
               </NavItem>
             </Nav>
