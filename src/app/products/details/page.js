@@ -2,6 +2,7 @@ import React from 'react'
 import image from '../../../assets/images/sample.png'
 import styles from './page.module.css'
 import Image from 'next/image'
+import { Table } from 'reactstrap'
 
 export default function Details() {
     return (
@@ -51,6 +52,22 @@ export default function Details() {
                     {/* Technical section */}
                     <div className='col-lg-6 col-md-12 mt-5'>
                         <h1 className={styles.title_headers}>Thông số kỹ thuật</h1>
+                        <Table
+                            bordered
+                            striped
+                            responsive
+                        >
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        Technical Name
+                                    </td>
+                                    <td>
+                                        Technical description
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </Table>
                     </div>
                     {/* End Technical section */}
                 </div>
