@@ -1,7 +1,7 @@
 const { default: Reviews } = require('../src/app/pages/reviews/page');
 const { default: RootLayout } = require('../src/app/layout');
 const library =  require('@testing-library/jest-dom')
-const { render, screen, fireEvent } = require('@testing-library/react')
+const { render, screen, fireEvent } = require('@testing-library/react');
 
 jest.mock('next/navigation', () => ({
     useRouter: () => ({
@@ -27,5 +27,21 @@ describe('Layout', () => {
     var link2 = screen.getByText('Tên sản phẩm')
     fireEvent.click(link2)
     expect(screen.getByText('Lọc thương hiệu')).toBeInTheDocument();
-  })
+  }),
+  // it('Check navigations', () => {
+  //   const push = jest.fn();
+
+  //   useRouter.mockImplementation(() => ({
+  //     asPath: "/",
+  //     push,
+  //   }))
+
+  //   render(<RootLayout />)
+
+  //   var link = screen.getByText('Giới thiệu')
+  //   fireEvent.click(link)
+
+  //   expect(push).toHaveBeenCalledWith("/pages/reviews")
+
+  // })
 })
