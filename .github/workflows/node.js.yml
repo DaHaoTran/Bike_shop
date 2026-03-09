@@ -4,8 +4,6 @@
 name: Node.js CI Test
 
 on:
-  push:
-    branches: [ "main-editing" ]
   pull_request:
     branches: [ "main" ]
 
