@@ -1,0 +1,4 @@
+CREATE TABLE types (
+    Id INTERGER NOT NULL PRIMARY KEY,
+    Name TEXT NOT NULL 
+);
