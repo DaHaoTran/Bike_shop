@@ -1,7 +1,7 @@
 const { default: Reviews } = require('../src/app/pages/reviews/page');
-const { default: RootLayout } = require('../src/app/layout');
 const library =  require('@testing-library/jest-dom')
 const { render, screen, fireEvent } = require('@testing-library/react');
+const { default: LayoutProvider } = require('../src/app/providers/layout_provider');
 
 jest.mock('next/navigation', () => ({
     useRouter: () => ({
@@ -17,7 +17,7 @@ jest.mock('next/navigation', () => ({
 
 describe('Layout', () => {
   it('Check existing modals', () => {
-    render(<RootLayout />)
+    render(<LayoutProvider />)
     
     // price selection 
     var link = screen.getByText('Trong tầm giá')

@@ -22,8 +22,8 @@ var pageState = ["opening", "error"]
 
 export default function RootLayout({ children }) {
   var currentPageState = pageState[0]
-  
-  if(currentPageState == null) return;
+
+  if (currentPageState == null) return;
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>

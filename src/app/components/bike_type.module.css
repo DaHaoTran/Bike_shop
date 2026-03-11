@@ -22,7 +22,8 @@
 .type_name {
     width: 75%;
     position: relative;
-    margin-left: 160px;
+    display: flex;
+    justify-content: end;
 }
 
 /* animations */
