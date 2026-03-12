@@ -6,12 +6,17 @@ import CarouselReview from "./components/carousel_review";
 import rect from '../assets/images/rect.png'
 import { Suspense, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { useDispatch, useSelector } from "react-redux";
+import { addTypes } from "./features/type/type_slice";
 
 export default function Home() {
   const route = useRouter();
-  const [types, setTypes] = useState([]);
+  const dispatch = useDispatch();
+  const { types } = useSelector(x => x.type);
 
   useEffect(() => {
+    if(types.length > 0) return;
+
     async function getTypes() {
       try {
         const res = await fetch('/api/types');
@@ -20,7 +25,7 @@ export default function Home() {
           return
         }
         const data = await res.json();
-        setTypes(data);
+        dispatch(addTypes(data));
       } catch (error) {
         route.push(`/pages/errors/${error.status}`);
       }
