@@ -14,6 +14,10 @@ describe('bikes api', () => {
       const res = await fetch('api/bikes/by_types?id=1&limit=1');
       expect(res.ok).toBe(true);
     })
+    it('get bike details by id', async () => {
+      const res = await fetch('api/bikes/details?id=1');
+      expect(res.ok).toBe(true);
+    })
 })
 
 describe('types api', () => {
