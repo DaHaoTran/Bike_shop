@@ -3,8 +3,12 @@ require('jest-fetch-mock').enableMocks();
 
 describe('bikes api', () => {
     it('get bikes', async () => {
-        const res = await fetch('api/bikes');
-        expect(res.ok).toBe(true);
+      const res = await fetch('api/bikes');
+      expect(res.ok).toBe(true);
+    })
+    it('get bikes by id', async () => {
+      const res = await fetch('api/bikes/by_types?id=1');
+      expect(res.ok).toBe(true);
     })
 })
 
