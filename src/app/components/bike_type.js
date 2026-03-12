@@ -18,7 +18,7 @@ export default function BikeType({id, name}) {
     if(!id) return;
     try {
       async function getBikesById() {
-        const res = await fetch(`/api/bikes/by_types?id=${id}`);
+        const res = await fetch(`/api/bikes/by_types?id=${id}&limit=${1}`);
         if (!res.ok) {
           route.push(`/pages/errors/${res.status}`)
           return
