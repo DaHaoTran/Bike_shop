@@ -1,10 +1,16 @@
+"use client"
 import React from 'react'
 import image from '../../../assets/images/sample.png'
 import styles from './page.module.css'
 import Image from 'next/image'
-import { Table } from 'reactstrap'
+import { Spinner, Table } from 'reactstrap'
+import { useDispatch, useSelector } from 'react-redux'
 
 export default function Details() {
+    const dispatch = useDispatch();
+    const { bike } = useSelector(x => x.bike); 
+
+    if(!bike || Object.keys(bike).length <= 0) return <div style={{marginTop: "100px", marginLeft: "30px", fontSize: "100px"}}><Spinner color='dark' /></div>
     return (
         <>
             <hr className={styles.line} />
