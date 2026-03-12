@@ -1,16 +1,38 @@
 "use client"
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import image from '../../../assets/images/sample.png'
 import styles from './page.module.css'
 import Image from 'next/image'
 import { Spinner, Table } from 'reactstrap'
 import { useDispatch, useSelector } from 'react-redux'
+import { useRouter } from 'next/navigation'
 
 export default function Details() {
     const dispatch = useDispatch();
+    const router = useRouter();
     const { bike } = useSelector(x => x.bike); 
+    const [detail, setDetail] = useState({});
 
-    if(!bike || Object.keys(bike).length <= 0) return <div style={{marginTop: "100px", marginLeft: "30px", fontSize: "100px"}}><Spinner color='dark' /></div>
+    useEffect(() => {
+        if(!bike || Object.keys(bike).length <= 0) return;
+
+        try {
+            async function getDetails() {
+                const res = await fetch(`/api/bikes/details?id=${bike.id}`);
+                if(!res.ok) {
+                    router.push(`/pages/errors/${res.status}`);
+                    return;
+                }
+                const data = await res.json();
+                setDetail(data);
+            }
+            getDetails();
+        } catch (error) {
+            router.push(`/pages/errors/${error.status}`);
+        }
+    }, [bike])
+
+    if(!detail || Object.keys(detail).length <= 0) return <div style={{marginTop: "100px", marginLeft: "30px", fontSize: "100px"}}><Spinner color='dark' /></div>
     return (
         <>
             <hr className={styles.line} />
@@ -25,7 +47,9 @@ export default function Details() {
                         <div className={styles.image_container}>
                             <Image
                                 className={styles.image}
-                                src={image}
+                                src={`data:image/png;base64,${bike.image}`}
+                                width={500}
+                                height={400}
                                 alt='Bike image' />
                         </div>
                     </div>
@@ -33,8 +57,8 @@ export default function Details() {
                     {/* Title section */}
                     <div className='col-lg-6 col-md-12'>
                         <div>
-                            <h1 className={styles.title_bikename}>Yamaha PG-1 mới Phiên bản giới hạn</h1>
-                            <h2 className={styles.title_bikeprice} style={{ color: 'grey' }}>Giá từ <strong>30.000.000 - 34.855.000 Vnđ</strong></h2>
+                            <h1 className={styles.title_bikename}>{bike.name}</h1>
+                            <h2 className={styles.title_bikeprice} style={{ color: 'grey' }}>Giá từ <strong>{bike.price} Vnđ</strong></h2>
                         </div>
                         <div className='mt-5'>
                             <button className={styles.title_orderbutton}><h2>Mua xe</h2></button>
@@ -44,15 +68,7 @@ export default function Details() {
                     {/* Review section */}
                     <div className='col-lg-6 col-md-12 mt-5'>
                         <h1 className={styles.title_headers}>Giới thiệu</h1>
-                        <p>Sit consectetur est exercitation do in Lorem cillum aliquip laboris. Sunt nulla reprehenderit non adipisicing cillum fugiat sint aliquip laborum nisi nisi veniam aliquip. Ullamco eu tempor dolore eu aliqua occaecat laborum magna excepteur. Labore deserunt aliquip reprehenderit minim labore id excepteur aliquip velit anim Lorem. Id esse do qui enim. Officia id labore sit et do ex.
-
-                            Eu do do nisi quis mollit eu nisi sunt qui aliquip. Minim id commodo deserunt id. Aute adipisicing id consectetur ex ea nisi dolore ex et id ad ea officia occaecat. Deserunt aute sint labore aliqua deserunt minim ad veniam aute ea voluptate nostrud et. Dolor et aliqua nulla nulla aliquip excepteur nisi commodo duis excepteur non reprehenderit. Nostrud adipisicing aliquip duis est ullamco dolore exercitation eiusmod anim eu. Amet ea exercitation elit ullamco velit laboris.
-
-                            Cillum aute amet eu occaecat incididunt consectetur enim velit officia qui eiusmod ullamco. Labore proident cillum Lorem labore do ipsum. Ea consequat sint nostrud minim nisi labore consequat. Aliquip culpa sit id anim eiusmod eiusmod velit qui eiusmod nulla magna duis. Anim irure sit magna qui eu deserunt sint ipsum elit proident laboris. Veniam eiusmod nostrud Lorem veniam proident deserunt incididunt amet quis.
-
-                            Adipisicing consequat adipisicing ullamco dolor. Ex ut aute velit voluptate. Officia proident voluptate mollit laboris sunt excepteur nostrud ad aliqua. Pariatur ea Lorem sunt dolore id. Aliqua tempor qui sunt cillum excepteur incididunt. Sit ullamco consectetur quis irure incididunt.
-
-                            Nisi consequat enim nostrud nulla eiusmod aute exercitation laborum veniam culpa. Nostrud labore commodo aute deserunt excepteur sint ad nulla. Dolore ipsum aute aute officia amet eiusmod ipsum amet proident minim. Sit dolore do labore sunt est velit ipsum aute mollit nostrud. Voluptate in nisi sint officia ipsum cupidatat ipsum nulla excepteur mollit laboris ut. Eu ullamco tempor consectetur dolore ipsum excepteur fugiat esse esse qui quis. Commodo aliqua amet velit labore tempor sunt.</p>
+                        <p>{detail.review}</p>
                     </div>
                     {/* End Review section */}
                     {/* Technical section */}
@@ -64,14 +80,12 @@ export default function Details() {
                             responsive
                         >
                             <tbody>
-                                <tr>
-                                    <td>
-                                        Technical Name
-                                    </td>
-                                    <td>
-                                        Technical description
-                                    </td>
-                                </tr>
+                                {Object.entries(detail.technical).map(([key, value]) => (
+                                    <tr key={key}>
+                                        <td>{key}</td>
+                                        <td>{value}</td>
+                                    </tr>
+                                ))}
                             </tbody>
                         </Table>
                     </div>
