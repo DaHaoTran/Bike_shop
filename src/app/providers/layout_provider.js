@@ -1,5 +1,5 @@
 "use client"
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './layout_provider.module.css';
 import {
   Collapse,
@@ -22,6 +22,8 @@ import { useRouter } from 'next/navigation';
 export default function LayoutProvider({ children }) {
   const [isOpen, setIsOpen] = useState(false);
   const router = useRouter();
+  const [firms, setFirms] = useState([]);
+  const [names, setNames] = useState([]);
 
   const toggle = () => setIsOpen(!isOpen);
 
@@ -55,9 +57,7 @@ export default function LayoutProvider({ children }) {
     const { value: fruit } = await Swal.fire({
       title: "Lọc thương hiệu",
       input: "select",
-      inputOptions: {
-        yamaha: 'Yamaha',
-      },
+      inputOptions: names,
       inputPlaceholder: "Chọn thương hiệu xe",
       showCancelButton: true,
       inputValidator: (value) => {
@@ -78,6 +78,35 @@ export default function LayoutProvider({ children }) {
       cancelButtonText: "Không, tôi nghèo"
     });
   }
+
+  useEffect(() => {
+    async function getFirms() {
+      try {
+        const res = await fetch('/api/firms');
+        if(!res.ok) {
+          router.push(`/pages/errors/${res.status}`);
+          return;
+        }
+        const data = await res.json();
+        setFirms(data)
+      } catch (error) {
+        router.push(`/pages/errors/${error.status}`)
+      }
+    }
+    getFirms();
+  }, [])
+
+  useEffect(() => {
+    if(!firms) {
+      router.push('/pages/errors/500');
+      return
+    }
+
+    firms.forEach((x) => {
+      const name = x.name;
+      setNames({name: name, ...names});
+    })
+  }, [firms])
 
   return (
     <div>

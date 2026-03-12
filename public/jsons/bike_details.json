@@ -1,8 +1,8 @@
 [
   {
-    "Id": 1,
-    "Review": "Xe máy Freego Yamaha là mẫu xe tay ga thể thao đời mới có mức giá rất hợp lý, được trang bị toàn diện các tính năng như: khóa thông minh Smart Key, phanh ABS, cốp xe rộng 25 lít, tích hợp cộng sạc điện thoại tiện lợi...",
-    "Technical": {
+    "id": 1,
+    "review": "Xe máy Freego Yamaha là mẫu xe tay ga thể thao đời mới có mức giá rất hợp lý, được trang bị toàn diện các tính năng như: khóa thông minh Smart Key, phanh ABS, cốp xe rộng 25 lít, tích hợp cộng sạc điện thoại tiện lợi...",
+    "technical": {
       "Loại": "Blue Core, 4 kỳ, 2 van, SOHC, Làm mát bằng không khí cưỡng bức",
       "Bố trí xi lanh": "Xy - lanh đơn",
       "Dung tích xy lanh (CC)": 124.9,
@@ -21,12 +21,12 @@
       "Tỷ số truyền động": "2,420 - 0,810 : 1",
       "Kiểu hệ thống truyền lực": "CVT"
     },
-    "BikeId": 1
+    "bikeId": 1
   },
   {
-    "Id": 2,
-    "Review": "Yamaha PG-1 ABS mới dành cho thế hệ yêu tự do và đam mê dịch chuyển. Với thiết kế mang phong cách scrambler pha retro - hiện đại, PG-1 ABS mới khiến mỗi chuyến đi của bạn đều trở thành hành trình tận hưởng, từ phố thị đến ngoại thành, kết nối trọn vẹn với những sắc màu văn hóa trong cuộc sống hằng ngày.",
-    "Technical": {
+    "id": 2,
+    "review": "Yamaha PG-1 ABS mới dành cho thế hệ yêu tự do và đam mê dịch chuyển. Với thiết kế mang phong cách scrambler pha retro - hiện đại, PG-1 ABS mới khiến mỗi chuyến đi của bạn đều trở thành hành trình tận hưởng, từ phố thị đến ngoại thành, kết nối trọn vẹn với những sắc màu văn hóa trong cuộc sống hằng ngày.",
+    "technical": {
       "Loại": "4 kỳ, 1 xi lanh, làm mát bằng không khí",
       "Bố trí xi lanh": "Xi lanh đơn",
       "Dung tích xy lanh (CC)": "113.7 cm3",
@@ -46,12 +46,12 @@
       "Kiểu hệ thống truyền lực": "Truyền động xích, chuyển số bằng chân",
       "Điện áp ắc quy": "12V 3.5Ah"
     },
-    "BikeId": 2
+    "bikeId": 2
   },
   {
-    "Id": 3,
-    "Review": "Yamaha NEO's là dòng xe điện đang được xuất khẩu và bán ở thị trường Châu Âu, nay đã chính thức có mặt tại Việt Nam. Những tính năng và công nghệ của NEO's giúp mẫu xe này trở thành phương tiện di chuyển xanh và thân thiện với môi trường. Yamaha NEO's hứa hẹn sẽ là chiếc xe thông minh dành cho các bạn trẻ năng động, thời thượng, hiện đại và hướng tới tương lai.",
-    "Technical": {
+    "id": 3,
+    "review": "Yamaha NEO's là dòng xe điện đang được xuất khẩu và bán ở thị trường Châu Âu, nay đã chính thức có mặt tại Việt Nam. Những tính năng và công nghệ của NEO's giúp mẫu xe này trở thành phương tiện di chuyển xanh và thân thiện với môi trường. Yamaha NEO's hứa hẹn sẽ là chiếc xe thông minh dành cho các bạn trẻ năng động, thời thượng, hiện đại và hướng tới tương lai.",
+    "technical": {
       "Loại": "Động cơ điện một chiều không chổi than",
       "Công suất tối đa": "2.3 kW",
       "Mô men xoắn cực đại": "138.3 Nm tại 40 rpm",
@@ -63,12 +63,12 @@
       "Thời gian sạc": "9 tiếng",
       "Phương thức truyền động": "Electric motor"
     },
-    "BikeId": 3
+    "bikeId": 3
   },
   {
-    "Id": 4,
-    "Review": "Yamaha XS155R được Yamaha Motor Việt Nam phân phối chính hãng từ đầu năm 2023. Đây là dòng xe rất đáng được mong chờ nhờ thiết kế cổ điển đẹp mắt nhưng vẫn sở hữu khối động cơ mạnh mẽ. Với thông điệp “Feel your ride: Lái cảm xúc, Chất đam mê”, XS155R được kỳ vọng mang đến những trải nghiệm lái phấn khích và thú vị cho khách hàng.",
-    "Technical": {
+    "id": 4,
+    "review": "Yamaha XS155R được Yamaha Motor Việt Nam phân phối chính hãng từ đầu năm 2023. Đây là dòng xe rất đáng được mong chờ nhờ thiết kế cổ điển đẹp mắt nhưng vẫn sở hữu khối động cơ mạnh mẽ. Với thông điệp “Feel your ride: Lái cảm xúc, Chất đam mê”, XS155R được kỳ vọng mang đến những trải nghiệm lái phấn khích và thú vị cho khách hàng.",
+    "technical": {
       "Loại": "Động cơ 4 thì, làm mát bằng dung dịch, SOHC, xy-lanh đơn 4 van",
       "Bố trí xi lanh": "Xi lanh đơn",
       "Dung tích xy lanh (CC)": 155.1,
@@ -88,17 +88,17 @@
       "Bộ ly hợp": "Ướt, đa đĩa",
       "Tỉ lệ chuyển động (thứ 1 đến thứ 6)": "1st: 2.833, 2nd: 1.875, 3rd: 1.364, 4th: 1.143, 5th: 0.957, 6th: 0.840"
     },
-    "BikeId": 4
+    "bikeId": 4
   },
   {
-    "Id": 5,
-    "Review": "Dầu nhờn được phát triển đặc biệt dành cho các loại xe tay ga Yamaha có sử dụng động cơ Blue Core. Giúp tăng hiệu suất đốt cháy nhiên liệu tối đa, bảo vệ động cơ, tiết kiệm nhiên liệu. Giúp xe hoạt động bền bỉ và vận hành êm ái.",
-    "Technical": {
+    "id": 5,
+    "review": "Dầu nhờn được phát triển đặc biệt dành cho các loại xe tay ga Yamaha có sử dụng động cơ Blue Core. Giúp tăng hiệu suất đốt cháy nhiên liệu tối đa, bảo vệ động cơ, tiết kiệm nhiên liệu. Giúp xe hoạt động bền bỉ và vận hành êm ái.",
+    "technical": {
       "Loại": "AT",
       "Độ nhớt": "10W-40",
       "Cấp": "SL",
       "JASO": "MB"
     },
-    "BikeId": 5
+    "bikeId": 5
   }
 ]
