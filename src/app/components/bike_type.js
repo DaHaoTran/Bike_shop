@@ -8,17 +8,17 @@ import Error from '../pages/errors/[number]/page'
 
 export default function BikeType({id, name}) {
   const router = useRouter();
-  const [bike, setBike] = useState({});
   const [bikes, setBikes] = useState([]);
 
   const onTypeClick = () => {
-    router.push('/products')
+    router.push(`/products?id=${id}&str=${name}`)
   }
 
   useEffect(() => {
+    if(!id) return;
     try {
-      async function getBikesById(params) {
-        const res = await fetch(`api/bikes`);
+      async function getBikesById() {
+        const res = await fetch(`/api/bikes/by_types?id=${id}`);
         if (!res.ok) {
           route.push(`/pages/errors/${res.status}`)
           return
@@ -30,21 +30,16 @@ export default function BikeType({id, name}) {
     } catch (error) {
       route.push(`/pages/errors/${error.status}`)
     }
-  }, []);
+  }, [id]);
 
-  useEffect(() => {
-    if(!id) return;
-    setBike(bikes.find(x => x.typeId === id));
-  }, [id, bikes])
-
-  if(!bike || Object.keys(bike).length <= 0) return null;
+  if(bikes.length <= 0) return null;
   return (
     <div className={styles.type_container} onClick={x => onTypeClick()}>
         <div className={styles.type_background}></div>
         <h4 className={styles.type_name}><strong>{name}</strong></h4>
         <Image
             className={`position-relative ${styles.type_image}`}
-            src={`data:image/png;base64,${bike.image}`} 
+            src={`data:image/png;base64,${bikes[0].image}`} 
             width={350}
             height={280}
             alt='bike image' />
