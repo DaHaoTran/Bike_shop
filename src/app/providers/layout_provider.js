@@ -73,7 +73,9 @@ export default function LayoutProvider({ children }) {
       title: "Giàu nhỉ ?",
       text: "Tớ nghĩ cậu không đủ tiền để mua nổi 1 lần 2 chiếc xe đâu !",
       icon: "question",
-      confirmButtonText: "Vâng"
+      showCancelButton: true,
+      confirmButtonText: "Vâng, đúng vậy",
+      cancelButtonText: "Không, tôi nghèo"
     });
   }
 
