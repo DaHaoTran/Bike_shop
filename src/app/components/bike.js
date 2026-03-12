@@ -5,11 +5,15 @@ import image from '../../assets/images/sample.png'
 import Image from 'next/image'
 import { CiLocationArrow1 } from "react-icons/ci";
 import { useRouter } from 'next/navigation'
+import { useDispatch } from 'react-redux'
+import { addBike } from '../features/bike/bike_slice'
 
 export default function Bike({ bike }) {
   const router = useRouter();
+  const dispatch = useDispatch();
 
   const onBikeDetailsClick = () => {
+    dispatch(addBike(bike));
     router.push('/products/details');
   }
 
