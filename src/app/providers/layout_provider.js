@@ -18,13 +18,15 @@ import {
 import { IoChatbubbleOutline } from "react-icons/io5";
 import Swal from 'sweetalert2'
 import { useRouter } from 'next/navigation';
+import { useDispatch } from 'react-redux';
+import { setFirmId } from '../features/firm/firmSlice';
 
 export default function LayoutProvider({ children }) {
-  const [isOpen, setIsOpen] = useState(false);
   const router = useRouter();
+  const dispatch = useDispatch();
+  const [isOpen, setIsOpen] = useState(false);
   const [firms, setFirms] = useState([]);
   const [names, setNames] = useState([]);
-
   const toggle = () => setIsOpen(!isOpen);
 
   const onPriceSelectionClick = async () => {
@@ -63,7 +65,9 @@ export default function LayoutProvider({ children }) {
       inputValidator: (value) => {
         return new Promise((resolve) => {
           resolve()
-          router.push(`/products?str=${value}`)
+          const firm = firms.find(x => x.name === value);
+          dispatch(setFirmId(firm.id))
+          router.push(`/products?str=${value}`);
         });
       }
     });
@@ -97,14 +101,9 @@ export default function LayoutProvider({ children }) {
   }, [])
 
   useEffect(() => {
-    if(!firms) {
-      router.push('/pages/errors/500');
-      return
-    }
-
     firms.forEach((x) => {
       const name = x.name;
-      setNames({name: name, ...names});
+      setNames({[name]: name, ...names});
     })
   }, [firms])
 
