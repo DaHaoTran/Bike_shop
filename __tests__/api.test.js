@@ -30,7 +30,7 @@ describe('bikes api', () => {
       expect(res.ok).toBe(true);
     })
     it('get bikes by search string wih limit', async () => {
-      const res = await fetch('/api/bikes/filter?str=hi&limit=1');
+      const res = await fetch('/api/bikes/filter?str=from0to50&limit=1');
       expect(res.ok).toBe(true);
     })
 })
