@@ -26,8 +26,6 @@ function ProductsContent() {
         }
         const data = await res.json();
         const data2 = await res2.json();
-        console.log("data", data)
-        console.log("data2", data2)
         setBikes([...data, ...data2, ...bikes]);
       } catch (error) {
         router.push(`/pages/errors/${error.status}`);
