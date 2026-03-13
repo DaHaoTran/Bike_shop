@@ -1,6 +1,6 @@
 "use client"
 import React, { useEffect, useState } from 'react'
-import image from '../../../assets/images/sample.png'
+import image from '../../../assets/images/meow.png'
 import styles from './page.module.css'
 import Image from 'next/image'
 import { Spinner, Table } from 'reactstrap'
@@ -12,6 +12,23 @@ export default function Details() {
     const router = useRouter();
     const { bike } = useSelector(x => x.bike); 
     const [detail, setDetail] = useState({});
+    const [color, setColor] = useState('lightgray');
+    const [animationState, setAnimationState] = useState('paused');
+    const colors = {
+        'đỏ': '#bf2424',
+        'xanh': '#242cbf',
+        'vàng': '#bf9b24',
+        'tím': '#7424bf'
+    }
+
+    const onColorPicked = (value) => {
+        setColor(value)
+
+        setAnimationState('running');
+        setTimeout(() => {
+            setAnimationState('paused');
+        }, 2200);
+    }
 
     useEffect(() => {
         if(!bike || Object.keys(bike).length <= 0) return;
@@ -37,14 +54,15 @@ export default function Details() {
         <>
             <hr className={styles.line} />
             <div className={styles.color_pickers}>
-                <button className='px-4 py-1 mb-2'>Đỏ</button>
-                <button className='px-4 py-1 mb-2'>Xanh</button>
+                {Object.entries(colors).map(([key, value]) => (
+                    <button className='px-4 py-1 mb-2' key={key} onClick={x => onColorPicked(value)}>{key}</button>
+                ))}
             </div>
             <div className={styles.details_container}>
                 <div className='mt-5 row'>
                     {/* Image section */}
                     <div className='col-lg-6 col-md-12'>
-                        <div className={styles.image_container}>
+                        <div className={styles.image_container} style={{backgroundColor: color}}>
                             <Image
                                 className={styles.image}
                                 src={`data:image/png;base64,${bike.image}`}
@@ -91,6 +109,16 @@ export default function Details() {
                     </div>
                     {/* End Technical section */}
                 </div>
+            </div>
+            <div className='w-100 d-flex justify-content-center'>
+                <Image
+                    className={styles.meow}
+                    style={{animationPlayState: animationState}}
+                    src={image}
+                    width={400}
+                    height={300}
+                    alt='nothing'
+                />
             </div>
         </>
     )

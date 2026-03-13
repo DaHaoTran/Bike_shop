@@ -23,7 +23,6 @@
     width: 100%;
     display: flex;
     justify-content: center;
-    background-color: lightgray;
 }
 
 .title_bikename {
@@ -43,4 +42,27 @@
 .title_headers {
     font-size: 45px;
     font-weight: 600;
+}
+
+.meow {
+    opacity: 0;
+    position: absolute;
+    top: 11vw;
+    
+    animation-name: fade;
+    animation-duration: 2s;
+    animation-timing-function: ease-in;
+}
+
+
+@keyframes fade {
+    0% {
+        opacity: 0;
+    } 
+    50% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
 }
