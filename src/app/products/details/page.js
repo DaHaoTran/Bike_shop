@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import image from '../../../assets/images/meow.png'
 import styles from './page.module.css'
 import Image from 'next/image'
-import { Spinner, Table } from 'reactstrap'
+import { Form, FormGroup, Input, Label, Modal, ModalBody, ModalHeader, Spinner, Table } from 'reactstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import { useRouter } from 'next/navigation'
 
@@ -20,6 +20,9 @@ export default function Details() {
         'vàng': '#bf9b24',
         'tím': '#7424bf'
     }
+    const [modal, setModal] = useState(false);
+
+    const toggle = () => setModal(!modal);
 
     const onColorPicked = (value) => {
         setColor(value)
@@ -28,6 +31,10 @@ export default function Details() {
         setTimeout(() => {
             setAnimationState('paused');
         }, 2200);
+    }
+
+    const onBuyingSubmit = (e) => {
+        e.preventDefault();
     }
 
     useEffect(() => {
@@ -79,7 +86,7 @@ export default function Details() {
                             <h2 className={styles.title_bikeprice} style={{ color: 'grey' }}>Giá từ <strong>{bike.price} Vnđ</strong></h2>
                         </div>
                         <div className='mt-5'>
-                            <button className={styles.title_orderbutton}><h2>Mua xe</h2></button>
+                            <button className={styles.title_orderbutton} onClick={toggle}><h2>Mua xe</h2></button>
                         </div>
                     </div>
                     {/* End Title section */}
@@ -120,6 +127,48 @@ export default function Details() {
                     alt='nothing'
                 />
             </div>
+            <Modal isOpen={modal} toggle={toggle}>
+                <ModalHeader toggle={toggle}>Thông tin liên hệ</ModalHeader>
+                <ModalBody>
+                    <Form onSubmit={e => onBuyingSubmit(e)}>
+                        <FormGroup>
+                            <Label>Họ và tên</Label>
+                            <Input 
+                                type='text'
+                                required
+                            />
+                        </FormGroup>
+                        <FormGroup>
+                            <Label>Số điện thoại</Label>
+                            <Input 
+                                type='tel'
+                                required
+                            />
+                        </FormGroup>
+                         <FormGroup>
+                            <Label>Địa chỉ</Label>
+                            <Input 
+                                type='text'
+                                required
+                            />
+                        </FormGroup>
+                         <FormGroup>
+                            <Label>Ngày hẹn</Label>
+                            <Input 
+                                type='date'
+                                required
+                            />
+                        </FormGroup>
+                        <FormGroup>
+                            <Input
+                                className='btn btn-dark'
+                                type='submit'
+                                value={'Xác nhận'}
+                            />
+                        </FormGroup>
+                    </Form>
+                </ModalBody>
+            </Modal>
         </>
     )
 }
