@@ -5,7 +5,7 @@ export async function POST(request) {
     // Read the body as text (since you're sending x-www-form-urlencoded)
     const body = await request.text();
 
-    const res = await fetch(process.env.NEXT_PUBLIC_SHEETS_URL, {
+    const res = await fetch(secrets.NEXT_PUBLIC_SHEETS_URL, {
       method: "POST",
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
