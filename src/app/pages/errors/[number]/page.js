@@ -1,3 +1,4 @@
+"use client"
 import React from 'react'
 import styles from './page.module.css'
 import { useParams, useSearchParams } from 'next/navigation'
@@ -16,14 +17,4 @@ export default function Error() {
       <h5 className={styles.error_sub_title}>Something <br /> went wrong :(( <br /> ...</h5>
     </div>
   )
-}
-
-// 👇 Required for static export
-export async function generateStaticParams() {
-  // Define which error numbers you want to pre-render
-  return [
-    { number: '404' },
-    { number: '500' },
-    { number: '403' },
-  ]
 }
