@@ -1,13 +1,17 @@
 "use client"
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import image from '../../../assets/images/meow.png'
 import styles from './page.module.css'
 import Image from 'next/image'
 import { Form, FormGroup, Input, Label, Modal, ModalBody, ModalHeader, Spinner, Table } from 'reactstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import { useRouter } from 'next/navigation'
+import Swal from 'sweetalert2'
 
 export default function Details() {
+    let timerInterval;
+    let isBuyingSubmited;
+
     const dispatch = useDispatch();
     const router = useRouter();
     const { bike } = useSelector(x => x.bike); 
@@ -35,6 +39,65 @@ export default function Details() {
 
     const onBuyingSubmit = (e) => {
         e.preventDefault();
+
+        insertToSheets(e);
+
+        Swal.fire({
+            title: "Đang xác nhận",
+            html: "Vui lòng chờ trong <b></b> milli giây.",
+            timer: 3000,
+            timerProgressBar: true,
+            allowOutsideClick: false,
+            allowEscapeKey: false,
+            didOpen: () => {
+                Swal.showLoading();
+                const timer = Swal.getPopup().querySelector("b");
+                timerInterval = setInterval(() => {
+                    timer.textContent = `${Swal.getTimerLeft()}`;
+                }, 100);
+            },
+            willClose: () => {
+                clearInterval(timerInterval);
+            }
+        }).then((result) => {
+            if (isBuyingSubmited) {
+                Swal.fire({
+                    title: "Cảm ơn bạn đã đặt hàng",
+                    text: "Bên cửa hàng sẽ liên hệ để xác nhận và trao đổi thông tin với quý khách !",
+                    icon: "success"
+                });
+                router.push('/');
+            } else {
+                Swal.fire({
+                    title: "Xin lỗi vì sự bất tiện này",
+                    text: "Có vấn đề phát sinh, vui lòng thử lại !",
+                    icon: "error"
+                });
+            }
+        });
+    }
+
+    const insertToSheets = async (e) => {
+        try {
+            const rawValue = e.target.date.value;
+            const dateObj = new Date(rawValue);
+
+            // Convert to ISO string
+            const isoString = dateObj.toISOString(); 
+
+            const res = await fetch('/api/sheets', {
+                method: "POST",
+                body: (`Bike=${bike.name}&Name=${e.target.name.value}&Phone=${e.target.phone.value}&Address=${e.target.address.value}&Date=${isoString}`)
+            });
+
+            // if(!res.ok) {
+            //     isBuyingSubmited = false
+            //     return
+            // }
+            isBuyingSubmited = true
+        } catch (error) {
+            router.push(`/pages/errors/${error.status}`);
+        }
     }
 
     useEffect(() => {
@@ -134,14 +197,15 @@ export default function Details() {
                         <FormGroup>
                             <Label>Họ và tên</Label>
                             <Input 
-                                type='text'
+                                name='name'
                                 required
                             />
                         </FormGroup>
                         <FormGroup>
                             <Label>Số điện thoại</Label>
                             <Input 
-                                type='tel'
+                                type='text'
+                                name='phone'
                                 required
                             />
                         </FormGroup>
@@ -149,6 +213,7 @@ export default function Details() {
                             <Label>Địa chỉ</Label>
                             <Input 
                                 type='text'
+                                name='address'
                                 required
                             />
                         </FormGroup>
@@ -156,6 +221,7 @@ export default function Details() {
                             <Label>Ngày hẹn</Label>
                             <Input 
                                 type='date'
+                                name='date'
                                 required
                             />
                         </FormGroup>
