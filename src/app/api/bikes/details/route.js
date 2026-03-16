@@ -2,6 +2,8 @@ import { NextResponse } from "next/server";
 import path from 'path';
 import fs from 'fs';
 
+export const dynamic = "force-static"
+
 const filePath = path.join(process.cwd(), "public", "jsons", "bike_details.json");
 const getDetails = () => JSON.parse(fs.readFileSync(filePath, "utf-8"));
 

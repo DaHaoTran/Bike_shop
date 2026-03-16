@@ -1,5 +1,7 @@
 import { NextResponse } from "next/server";
 
+export const dynamic = "force-static"
+
 export async function POST(request) {
   try {
     // Read the body as text (since you're sending x-www-form-urlencoded)
