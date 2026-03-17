@@ -6,7 +6,7 @@ export default function Error({ number }) {
   return (
     <div className={styles.error_container}>
       <div>
-        <h1 className={styles.error_number_label}>{number}</h1>
+        <h1 className={styles.error_number_label}>{number || 500}</h1>
         <div className={styles.error_button_container}>
           <button className='px-4' onClick={(x => document.location.href= '/')}>Reload</button>
         </div>

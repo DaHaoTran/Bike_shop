@@ -4,45 +4,41 @@ import image from '../../assets/images/sample.png'
 import Image from 'next/image'
 import styles from './bike_type.module.css'
 import { useRouter } from 'next/navigation'
-import Error from '../pages/errors/[number]/page'
+import { useDispatch, useSelector } from 'react-redux'
+import { getBikeList } from '../methods/list'
 
-export default function BikeType({id, name}) {
+export default function BikeType({ id, name }) {
   const router = useRouter();
-  const [bikes, setBikes] = useState([]);
+  const dispatch = useDispatch();
+  const { bikes } = useSelector(x => x.bike);
+  const [bike, setBike] = useState({});
 
   const onTypeClick = () => {
     router.push(`/products?id=${id}&str=${name}`)
   }
 
   useEffect(() => {
-    if(!id) return;
-    try {
-      async function getBikesById() {
-        const res = await fetch(`/api/bikes/by_types?id=${id}&limit=${1}`);
-        if (!res.ok) {
-          route.push(`/pages/errors/${res.status}`)
-          return
-        }
-        const data = await res.json();
-        setBikes(data);
-      }
-      getBikesById();
-    } catch (error) {
-      route.push(`/pages/errors/${error.status}`)
-    }
-  }, [id]);
+    if (!bikes) return;
+    if (!id) return;
 
-  if(bikes.length <= 0) return null;
+    try {
+      setBike(bikes.find(x => x.typeId === parseInt(id)));
+    } catch {
+      router.push('/pages/errors/500')
+    }
+  }, [id, bikes])
+
+  if (!bike || Object.keys(bike).length <= 0) return null;
   return (
     <div className={styles.type_container} onClick={x => onTypeClick()}>
-        <div className={styles.type_background}></div>
-        <h4 className={styles.type_name}><strong>{name}</strong></h4>
-        <Image
-            className={`position-relative ${styles.type_image}`}
-            src={`data:image/png;base64,${bikes[0].image}`} 
-            width={350}
-            height={280}
-            alt='bike image' />
+      <div className={styles.type_background}></div>
+      <h4 className={styles.type_name}><strong>{name}</strong></h4>
+      <Image
+        className={`position-relative ${styles.type_image}`}
+        src={`data:image/png;base64,${bike.image}`}
+        width={350}
+        height={280}
+        alt='bike image' />
     </div>
   )
 }

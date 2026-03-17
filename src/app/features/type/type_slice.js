@@ -6,15 +6,15 @@ export const typeSlice = createSlice({
         types: []
     },
     reducers: {
-        addTypes: (state, action) => {
+        addTypeS: (state, action) => {
             state.types = action.payload;
         },
-        clearTypes: (state, action) => {
+        clearTypeS: (state, action) => {
             state.types = []
         }
     }
 });
 
-export const { addTypes, clearTypes } = typeSlice.actions;
+export const { addTypeS, clearTypeS } = typeSlice.actions;
 
 export default typeSlice.reducer;

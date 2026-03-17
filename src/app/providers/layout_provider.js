@@ -18,12 +18,18 @@ import {
 import { IoChatbubbleOutline } from "react-icons/io5";
 import Swal from 'sweetalert2'
 import { useRouter } from 'next/navigation';
-import { setFirmId } from '../features/firm/firmSlice';
+import { addFirmS, setFirmId } from '../features/firm/firmSlice';
+import { addBikeS } from '../features/bike/bike_slice';
+import { addDetailS } from '../features/bike_details/details_slice';
+import { useDispatch, useSelector } from 'react-redux';
+import { getFirmList, getBikeList, getDetailList } from '../methods/list';
 
 export default function LayoutProvider({ children }) {
   const router = useRouter();
+  const dispatch = useDispatch();
   const [isOpen, setIsOpen] = useState(false);
-  const [firms, setFirms] = useState([]);
+  const { firms }= useSelector(x => x.firm);
+  const { details } = useSelector(x => x.details);
   const [names, setNames] = useState([]);
   const toggle = () => setIsOpen(!isOpen);
 
@@ -81,23 +87,32 @@ export default function LayoutProvider({ children }) {
   }
 
   useEffect(() => {
-    async function getFirms() {
+    async function getBikesInList() {
+      dispatch(addBikeS(await getBikeList()));
+    }
+    getBikesInList();
+    
+    async function getFirmsInList() {
       try {
-        const res = await fetch('/api/firms');
-        if(!res.ok) {
-          router.push(`/pages/errors/${res.status}`);
-          return;
-        }
-        const data = await res.json();
-        setFirms(data)
-      } catch (error) {
-        router.push(`/pages/errors/${error.status}`)
+        dispatch(addFirmS(await getFirmList()));
+      } catch {
+        router.push(`/pages/errors/500`)
       }
     }
-    getFirms();
+    getFirmsInList();
+
+    async function getDetailsInList(params) {
+      try {
+        dispatch(addDetailS(await getDetailList()));
+      } catch {
+        router.push(`/pages/errors/500`)
+      }
+    }
+    getDetailsInList();
   }, [])
 
   useEffect(() => {
+    if(!firms) return;
     firms.forEach((x) => {
       const name = x.name;
       setNames({[name]: name, ...names});

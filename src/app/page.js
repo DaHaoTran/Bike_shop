@@ -7,7 +7,8 @@ import rect from '../assets/images/rect.png'
 import { Suspense, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
-import { addTypes } from "./features/type/type_slice";
+import { addTypeS } from "./features/type/type_slice";
+import { getTypeList } from "./methods/list";
 
 export default function Home() {
   const route = useRouter();
@@ -15,22 +16,14 @@ export default function Home() {
   const { types } = useSelector(x => x.type);
 
   useEffect(() => {
-    if(types.length > 0) return;
-
-    async function getTypes() {
-      try {
-        const res = await fetch('/api/types');
-        if(!res.ok) {
-          route.push(`/pages/errors/${res.status}`)
-          return
-        }
-        const data = await res.json();
-        dispatch(addTypes(data));
-      } catch (error) {
-        route.push(`/pages/errors/${error.status}`);
-      }
+    try {
+      async function getTypesInList() {
+      dispatch(addTypeS(await getTypeList()));
     }
-    getTypes();
+    getTypesInList();
+    } catch {
+      route.push(`/pages/errors/${500}`)
+    }
   }, []);
 
   return (
