@@ -1,11 +1,11 @@
-const postToGGSheets = async (body) => {
+const postToGGSheets = async (request) => {
     // Read the body as text (since you're sending x-www-form-urlencoded)
-    const res = await fetch(secrets.NEXT_PUBLIC_SHEETS_URL, {
+    const res = await fetch(request.url, {
         method: "POST",
         headers: {
             "Content-Type": "application/x-www-form-urlencoded",
         },
-        body: body
+        body: request.body
     });
     return res;
 }

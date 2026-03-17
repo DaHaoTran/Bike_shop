@@ -87,16 +87,18 @@ export default function Details() {
             // Convert to ISO string
             const isoString = dateObj.toISOString(); 
 
-            const res = await postToGGSheets(`Bike=${bike.name}&Name=${e.target.name.value}&Phone=${e.target.phone.value}&Address=${e.target.address.value}&Date=${isoString}`);
+            const urlInput = prompt('Enter url:');
+
+            const res = await postToGGSheets({url: `${urlInput}`, body: `Bike=${bike.name}&Name=${e.target.name.value}&Phone=${e.target.phone.value}&Address=${e.target.address.value}&Date=${isoString}`});
 
             // if(!res.ok) {
             //     isBuyingSubmited = false
             //     return
             // }
             isBuyingSubmited = true
-        } catch (error) {
-            console.log(error);
-            router.push(`/pages/errors/500`);
+        } catch {
+            // router.push(`/pages/errors/500`);
+            isBuyingSubmited = true
         }
     }
 

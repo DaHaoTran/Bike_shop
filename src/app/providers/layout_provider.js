@@ -86,6 +86,14 @@ export default function LayoutProvider({ children }) {
     });
   }
 
+  const onReviewClick = () => {
+    router.push('/pages/reviews')
+  }
+
+  const onHomeClick = () => {
+    router.push('/')
+  }
+
   useEffect(() => {
     async function getBikesInList() {
       dispatch(addBikeS(await getBikeList()));
@@ -123,12 +131,12 @@ export default function LayoutProvider({ children }) {
     <div>
       <nav className={styles.nav}>
         <Navbar expand='md' fixed='top'>
-          <NavbarBrand href="/"><h2><strong>Bike shop</strong></h2></NavbarBrand>
+          <NavbarBrand onClick={x => onHomeClick()}><h2><strong>Bike shop</strong></h2></NavbarBrand>
           <NavbarToggler onClick={toggle} />
           <Collapse isOpen={isOpen} navbar>
             <Nav className="me-auto w-100 d-flex justify-content-center" navbar>
               <NavItem>
-                <NavLink className={styles.nav_link} href="/pages/reviews">Giới thiệu</NavLink>
+                <NavLink className={styles.nav_link} onClick={x => onReviewClick}>Giới thiệu</NavLink>
               </NavItem>
               <NavItem>
                 <NavLink className={styles.nav_link} onClick={x => onPriceSelectionClick()}>Trong tầm giá</NavLink>
