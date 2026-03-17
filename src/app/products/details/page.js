@@ -15,6 +15,7 @@ export default function Details() {
     const dispatch = useDispatch();
     const router = useRouter();
     const { bike } = useSelector(x => x.bike); 
+    const { details } = useSelector(x => x.details);
     const [detail, setDetail] = useState({});
     const [color, setColor] = useState('lightgray');
     const [animationState, setAnimationState] = useState('paused');
@@ -101,23 +102,20 @@ export default function Details() {
     }
 
     useEffect(() => {
+        if(!details) return;
         if(!bike || Object.keys(bike).length <= 0) return;
 
         try {
-            async function getDetails() {
-                const res = await fetch(`/api/bikes/details?id=${bike.id}`);
-                if(!res.ok) {
-                    router.push(`/pages/errors/${res.status}`);
-                    return;
-                }
-                const data = await res.json();
-                setDetail(data);
+            const data = details.find(x => x.bikeId == bike.id);
+            if(!data) {
+                router.push(`/pages/errors/500`);
+                return
             }
-            getDetails();
-        } catch (error) {
-            router.push(`/pages/errors/${error.status}`);
+            setDetail(data);
+        } catch {
+            router.push(`/pages/errors/500`);
         }
-    }, [bike])
+    }, [bike, details])
 
     if(!detail || Object.keys(detail).length <= 0) return <div style={{marginTop: "100px", marginLeft: "30px", fontSize: "100px"}}><Spinner color='dark' /></div>
     return (

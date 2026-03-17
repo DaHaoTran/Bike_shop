@@ -12,10 +12,13 @@ export const firmSlice = createSlice({
         },
         addFirmS: (state, action) => {
             state.firms = action.payload;
-        }
+        },
+        clearFirms: (state) => {
+            state.firms = []
+        } 
     }
 })
 
-export const { setFirmId, addFirmS } = firmSlice.actions;
+export const { setFirmId, addFirmS, clearFirms } = firmSlice.actions;
 
 export default firmSlice.reducer;

@@ -20,14 +20,16 @@ import Swal from 'sweetalert2'
 import { useRouter } from 'next/navigation';
 import { addFirmS, setFirmId } from '../features/firm/firmSlice';
 import { addBikeS } from '../features/bike/bike_slice';
+import { addDetailS } from '../features/bike_details/details_slice';
 import { useDispatch, useSelector } from 'react-redux';
-import { getFirmList, getBikeList } from '../methods/list';
+import { getFirmList, getBikeList, getDetailList } from '../methods/list';
 
 export default function LayoutProvider({ children }) {
   const router = useRouter();
   const dispatch = useDispatch();
   const [isOpen, setIsOpen] = useState(false);
   const { firms }= useSelector(x => x.firm);
+  const { details } = useSelector(x => x.details);
   const [names, setNames] = useState([]);
   const toggle = () => setIsOpen(!isOpen);
 
@@ -98,6 +100,15 @@ export default function LayoutProvider({ children }) {
       }
     }
     getFirmsInList();
+
+    async function getDetailsInList(params) {
+      try {
+        dispatch(addDetailS(await getDetailList()));
+      } catch {
+        router.push(`/pages/errors/500`)
+      }
+    }
+    getDetailsInList();
   }, [])
 
   useEffect(() => {

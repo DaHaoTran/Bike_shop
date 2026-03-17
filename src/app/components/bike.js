@@ -6,7 +6,7 @@ import Image from 'next/image'
 import { CiLocationArrow1 } from "react-icons/ci";
 import { useRouter } from 'next/navigation'
 import { useDispatch } from 'react-redux'
-import { addDetails } from '../features/bike/bike_slice'
+import { addBike } from '../features/bike/bike_slice'
 
 export default function Bike({ bike }) {
   const router = useRouter();
