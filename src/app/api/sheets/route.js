@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 
-export const dynamic = "force-static"
+// export const dynamic = "force-static"
 
 export async function POST(request) {
   try {
