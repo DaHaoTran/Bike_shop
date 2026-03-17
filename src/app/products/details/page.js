@@ -7,6 +7,7 @@ import { Form, FormGroup, Input, Label, Modal, ModalBody, ModalHeader, Spinner, 
 import { useDispatch, useSelector } from 'react-redux'
 import { useRouter } from 'next/navigation'
 import Swal from 'sweetalert2'
+import { postToGGSheets } from '../../methods/sheets'
 
 export default function Details() {
     let timerInterval;
@@ -86,10 +87,7 @@ export default function Details() {
             // Convert to ISO string
             const isoString = dateObj.toISOString(); 
 
-            const res = await fetch('/api/sheets', {
-                method: "POST",
-                body: (`Bike=${bike.name}&Name=${e.target.name.value}&Phone=${e.target.phone.value}&Address=${e.target.address.value}&Date=${isoString}`)
-            });
+            const res = await postToGGSheets(`Bike=${bike.name}&Name=${e.target.name.value}&Phone=${e.target.phone.value}&Address=${e.target.address.value}&Date=${isoString}`);
 
             // if(!res.ok) {
             //     isBuyingSubmited = false
@@ -97,7 +95,8 @@ export default function Details() {
             // }
             isBuyingSubmited = true
         } catch (error) {
-            router.push(`/pages/errors/${error.status}`);
+            console.log(error);
+            router.push(`/pages/errors/500`);
         }
     }
 
