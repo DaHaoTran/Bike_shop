@@ -39,7 +39,7 @@ export default function Home() {
           <h1 className="my-4 text-center"><strong>Khám phá sản phẩm</strong></h1>
           <div className="row">
             {types.map((x) => (
-              <div className="col-lg-3 col-md-6 d-flex justify-content-center" key={x.id}>
+              <div className="col-lg-3 col-md-6 d-flex justify-content-center main_type_container" key={x.id}>
                 <BikeType id={x.id} name={x.name} />
               </div>
             ))}
