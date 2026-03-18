@@ -1,13 +1,12 @@
-.type_container {
+/* .type_container {
     animation: fade_in;
     animation-duration: 4s;
     animation-timeline: view();
-}
+} */
 
 .type_image {
     animation-name: slide_top;
     animation-duration: 2s;
-    animation-timeline: view();
 }
 
 .type_background {
