@@ -32,6 +32,9 @@ export default function LayoutProvider({ children }) {
   const { details } = useSelector(x => x.details);
   const [names, setNames] = useState([]);
   const toggle = () => setIsOpen(!isOpen);
+  const { data: bikeData, error: bikeError, isLoading: bikeLoading } = getBikeList();
+  const { data: firmData, error: firmError, isLoading: firmLoading } = getFirmList();
+  const { data: detailData, error: detailError, isLoading: detailLoading } = getDetailList()
 
   const onPriceSelectionClick = async () => {
     const { value: fruit } = await Swal.fire({
@@ -95,29 +98,12 @@ export default function LayoutProvider({ children }) {
   }
 
   useEffect(() => {
-    async function getBikesInList() {
-      dispatch(addBikeS(await getBikeList()));
-    }
-    getBikesInList();
-    
-    async function getFirmsInList() {
-      try {
-        dispatch(addFirmS(await getFirmList()));
-      } catch {
-        router.push(`/pages/errors/500`)
-      }
-    }
-    getFirmsInList();
+    if(!bikeData || !firmData || !detailData) return
 
-    async function getDetailsInList(params) {
-      try {
-        dispatch(addDetailS(await getDetailList()));
-      } catch {
-        router.push(`/pages/errors/500`)
-      }
-    }
-    getDetailsInList();
-  }, [])
+    dispatch(addBikeS(bikeData));
+    dispatch(addFirmS(firmData));
+    dispatch(addDetailS(detailData));
+  }, [bikeData, firmData, detailData])
 
   useEffect(() => {
     if(!firms) return;
@@ -126,6 +112,13 @@ export default function LayoutProvider({ children }) {
       setNames({[name]: name, ...names});
     })
   }, [firms])
+
+  useEffect(() => {
+    if(!bikeError || !firmError || !detailError) return
+
+    router.push(`/pages/errors/${500}`)
+
+  }, [bikeError, firmError, detailError])
 
   return (
     <div>

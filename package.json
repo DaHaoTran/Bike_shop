@@ -21,7 +21,8 @@
     "reactstrap": "^9.2.3",
     "sqlite": "^5.1.1",
     "sqlite3": "^5.1.7",
-    "sweetalert2": "^11.26.21"
+    "sweetalert2": "^11.26.21",
+    "swr": "^2.4.1"
   },
   "devDependencies": {
     "@babel/preset-react": "^7.28.5",

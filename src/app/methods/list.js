@@ -2,32 +2,34 @@
 // import path from 'path';
 // import fs from "fs";
 
+import useSWR from "swr";
 import { useFetch } from "../hooks/useFetch";
 
 // const filePathDefault = path.join(process.cwd(), "src", "assets", "jsons");
+const fetcher = (...args) => fetch(...args).then(res => res.json());
 
-const getTypeList = async () => {
+const getTypeList = () => {
     // const filePath = path.join(filePathDefault, "types.json");
     // return JSON.parse(fs.readFileSync(filePath, "utf-8"));
-    return useFetch('https://dahaotran.github.io/Bike-shop/jsons/types.json');
+    return useSWR('https://dahaotran.github.io/Bike-shop/jsons/types.json', fetcher);
 }
 
-const getBikeList = async () => {
+const getBikeList = () => {
     // const filePath = path.join(filePathDefault, "bikes.json");
     // return JSON.parse(fs.readFileSync(filePath, "utf-8"));
-    return useFetch('https://dahaotran.github.io/Bike-shop/jsons/bikes.json');
+    return useSWR('https://dahaotran.github.io/Bike-shop/jsons/bikes.json', fetcher);
 }
 
-const getFirmList = async () => {
+const getFirmList = () => {
     // const filePath = path.join(filePathDefault, "firms.json");
     // return JSON.parse(fs.readFileSync(filePath, "utf-8"));
-    return useFetch('https://dahaotran.github.io/Bike-shop/jsons/firms.json');
+    return useSWR('https://dahaotran.github.io/Bike-shop/jsons/firms.json', fetcher);
 }
 
-const getDetailList = async () => {
+const getDetailList = () => {
     // const filePath = path.join(filePathDefault, "bike_details.json");
     // return JSON.parse(fs.readFileSync(filePath, "utf-8"));
-    return useFetch('https://dahaotran.github.io/Bike-shop/jsons/bike_details.json');
+    return useSWR('https://dahaotran.github.io/Bike-shop/jsons/bike_details.json', fetcher);
 }
 
 export { getTypeList, getBikeList, getFirmList, getDetailList };
