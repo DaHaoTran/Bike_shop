@@ -11,20 +11,22 @@ import { addTypeS } from "./features/type/type_slice";
 import { getTypeList } from "./methods/list";
 
 export default function Home() {
-  const route = useRouter();
+  const router = useRouter();
   const dispatch = useDispatch();
   const { types } = useSelector(x => x.type);
+  const { data, error, isLoading } = getTypeList();
 
   useEffect(() => {
-    try {
-      async function getTypesInList() {
-      dispatch(addTypeS(await getTypeList()));
-    }
-    getTypesInList();
-    } catch {
-      route.push(`/pages/errors/${500}`)
-    }
-  }, []);
+    if(!data) return
+
+    dispatch(addTypeS(data));
+  }, [data]);
+
+  useEffect(() => {
+    if(!error) return
+    
+    router.push(`/pages/errors/${500}`)
+  }, [error])
 
   return (
     <Suspense fallback={<h1 style={{marginTop: '400px'}}>Loading</h1>}>
@@ -38,7 +40,7 @@ export default function Home() {
         <div className="mt-4" id="bike_types">
           <h1 className="my-4 text-center"><strong>Khám phá sản phẩm</strong></h1>
           <div className="row">
-            {types.map((x) => (
+            {isLoading && types.map((x) => (
               <div className="col-lg-3 col-md-6 d-flex justify-content-center main_type_container" key={x.id}>
                 <BikeType id={x.id} name={x.name} />
               </div>
