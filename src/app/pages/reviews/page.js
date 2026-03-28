@@ -8,7 +8,8 @@ const json = {
     'Lập trình bởi': 'DaHaoTran.',
     'Tạo ngày': '3/3/2026.',
     'Nội dung': 'đây là một trang web cá nhân. Không dùng cho mục đích kinh doanh.',
-    'Canvas': 'https://www.figma.com/design/cNjfcJyJQnHLLyECPDplqa/BikeShop?node-id=0-1&t=PELe1jpCogHglqNW-1'
+    'Canvas': 'https://www.figma.com/design/cNjfcJyJQnHLLyECPDplqa/BikeShop?node-id=0-1&t=PELe1jpCogHglqNW-1',
+    'Github': 'https://github.com/DaHaoTran/Bike_shop'
 }
 
 export default function Reviews() {
