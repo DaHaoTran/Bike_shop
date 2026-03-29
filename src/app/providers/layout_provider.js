@@ -23,18 +23,21 @@ import { addBikeS } from '../features/bike/bike_slice';
 import { addDetailS } from '../features/bike_details/details_slice';
 import { useDispatch, useSelector } from 'react-redux';
 import { getFirmList, getBikeList, getDetailList } from '../methods/list';
+import ChatForm from '../components/chat_form';
 
 export default function LayoutProvider({ children }) {
   const router = useRouter();
   const dispatch = useDispatch();
   const [isOpen, setIsOpen] = useState(false);
+  const [isChatOpen, setIsChatOpen] = useState(false);
   const { firms }= useSelector(x => x.firm);
   const { details } = useSelector(x => x.details);
   const [names, setNames] = useState([]);
   const toggle = () => setIsOpen(!isOpen);
+  const chatToggle = () => setIsChatOpen(!isChatOpen);
   const { data: bikeData, error: bikeError, isLoading: bikeLoading } = getBikeList();
   const { data: firmData, error: firmError, isLoading: firmLoading } = getFirmList();
-  const { data: detailData, error: detailError, isLoading: detailLoading } = getDetailList()
+  const { data: detailData, error: detailError, isLoading: detailLoading } = getDetailList();
 
   const onPriceSelectionClick = async () => {
     const { value: fruit } = await Swal.fire({
@@ -149,7 +152,11 @@ export default function LayoutProvider({ children }) {
         </Navbar>
       </nav>
       <article>{children}</article>
-      <div className={styles.show_widget}><IoChatbubbleOutline size='40' /><div></div></div>
+      {/* chat form button */}
+      <div className={styles.show_widget} onClick={x => chatToggle()}><IoChatbubbleOutline size='40' /><div></div></div>
+      {/* chat form */}
+      <ChatForm isVisible={isChatOpen} />
+      {/* footer */}
       <footer className={styles.footer}><h4>No coppyright</h4></footer>
     </div>
   )
