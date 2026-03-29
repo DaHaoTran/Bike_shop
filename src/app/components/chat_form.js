@@ -5,7 +5,7 @@ import botImage from '../../../public/chat_icon.png'
 import Image from 'next/image'
 
 export default function ChatForm() {
-  const botChat = () => (
+  const botChat = (content) => (
     <div className={styles.bot_chat_part_container}>
       <Image 
         src={botImage}
@@ -14,16 +14,18 @@ export default function ChatForm() {
         alt='bot image'
       />
       <div className={styles.bot_chat_part_content}>
-        Eiusmod incididunt eu elit in duis. Pariatur tempor pariatur magna ex elit. Ad mollit labore in esse incididunt do culpa eiusmod culpa occaecat. Ullamco est velit deserunt esse culpa laborum id est. Cillum sit nisi in Lorem consectetur sit esse magna id elit pariatur non ullamco magna. Incididunt dolore eu eiusmod qui officia tempor qui duis adipisicing aliquip commodo commodo nisi. Eu aute dolor tempor est nulla consequat culpa amet cillum.
-
-Minim enim exercitation nostrud duis. Labore pariatur deserunt ipsum duis non labore incididunt. Magna adipisicing commodo sit voluptate eu et dolore sunt. Ut mollit dolore quis duis nisi adipisicing commodo pariatur.
-
-Duis ea occaecat exercitation esse excepteur ad tempor id commodo eu ea veniam. Pariatur cupidatat ad occaecat labore consectetur irure consequat est nisi ea. Cillum exercitation do voluptate culpa velit labore est fugiat dolor sit. Esse enim labore cupidatat do ea excepteur elit ex consectetur dolor. Qui elit est nisi aute minim non irure. Ea consectetur sunt elit pariatur laboris est pariatur.
+          {content == null ? <p className='text-secondary'>Thinking... !</p> : content}
       </div>
     </div> 
   )
 
-  const userChat = () => <div>This user chat</div>
+  const userChat = (content) => (
+    <div className={styles.user_chat_part_container}>
+      <div className={styles.user_chat_part_content}>
+        {content == null ? 'null' : content.trim()}
+      </div>
+    </div>
+  )
 
   return (
     <>

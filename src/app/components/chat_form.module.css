@@ -65,3 +65,18 @@
     max-width: 70%;
     height: auto;
 }
+
+/* User chat */
+.user_chat_part_container {
+    margin: 15px 0px;
+    display: flex;
+    justify-content: end;
+}
+
+.user_chat_part_content {
+    border-radius: 30px;
+    padding: 10px;
+    background-color: #0090FE;
+    max-width: 70%;
+    height: auto;
+}
