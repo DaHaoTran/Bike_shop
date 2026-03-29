@@ -6,12 +6,15 @@ import styles from './bike_type.module.css'
 import { useRouter } from 'next/navigation'
 import { useDispatch, useSelector } from 'react-redux'
 import { getBikeList } from '../methods/list'
+import { animate, onScroll, utils } from "animejs";
 
 export default function BikeType({ id, name }) {
   const router = useRouter();
   const dispatch = useDispatch();
   const { bikes } = useSelector(x => x.bike);
   const [bike, setBike] = useState({});
+  const [ container ] = utils.$('#bike_type');
+  const [isScrollTrigger, setIsScrollTrigger] = useState(false);
 
   const onTypeClick = () => {
     router.push(`/products?id=${id}&str=${name}`)
@@ -28,9 +31,25 @@ export default function BikeType({ id, name }) {
     }
   }, [id, bikes])
 
+  // scroll animations
+  window.onscroll = () => {
+    if(isScrollTrigger) return
+
+    if(window.pageYOffset <= 100) return
+
+    setIsScrollTrigger(true);
+
+    animate('#bike_type', {
+        opacity: { from: 0, to: 1 },
+        y: { from: '20px', to: '0px' },
+        delay: 200,
+        duration: 2000,
+    });
+  }
+
   if (!bike || Object.keys(bike).length <= 0) return null;
   return (
-    <div className={styles.type_container} onClick={x => onTypeClick()}>
+    <div className={styles.type_container} onClick={x => onTypeClick()} id='bike_type'>
       <div className={styles.type_background}></div>
       <h4 className={styles.type_name}><strong>{name}</strong></h4>
       <Image

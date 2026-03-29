@@ -52,11 +52,11 @@ nav {
   background-color: white;
 }
 
-.main_type_container {
+/* .main_type_container {
   animation: fade_in;
   animation-duration: 4s;
-  /* animation-timeline: view(); */
-}
+  animation-timeline: view();
+} */
 
 @media (prefers-color-scheme: dark) {
   html {

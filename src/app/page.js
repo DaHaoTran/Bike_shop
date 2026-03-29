@@ -4,7 +4,7 @@ import styles from "./page.module.css";
 import BikeType from "./components/bike_type";
 import CarouselReview from "./components/carousel_review";
 import rect from '../assets/images/rect.png'
-import { Suspense, useEffect, useState } from "react";
+import { Suspense, use, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
 import { addTypeS } from "./features/type/type_slice";
@@ -14,7 +14,7 @@ export default function Home() {
   const router = useRouter();
   const dispatch = useDispatch();
   const { types } = useSelector(x => x.type);
-  const { data, error, isLoading } = getTypeList();
+  const { data, error, isLoading } = getTypeList(); 
 
   useEffect(() => {
     if(!data) return
@@ -30,7 +30,7 @@ export default function Home() {
 
   return (
     <Suspense fallback={<h1 style={{marginTop: '400px'}}>Loading</h1>}>
-      <div>
+      <div id="home_container">
         {/* Carousel section */}
         <div className={styles.carousel_container}>
           <CarouselReview />
