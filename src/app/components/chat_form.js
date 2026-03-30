@@ -78,6 +78,7 @@ export default function ChatForm({ isVisible }) {
       <div className={styles.chat_form_container} id='chat-form'>
         <div className={styles.chat_form_header}><h3 className='text-center'>CHATBOT</h3></div>
         <div className={styles.chat_form_chat_list} id='chat_history'>
+          {botChat('Chào bạn, tớ có thể giúp gì cho bạn ?')}
           {chatHistory && chatHistory.map((x, index) => (
             <div key={index}>
               {x.role === 'user' ? userChat(x.content) : botChat(x.content)}
