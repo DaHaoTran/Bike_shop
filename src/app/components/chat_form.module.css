@@ -47,7 +47,7 @@
     /* create scroll */
     overflow-y: auto;
     scrollbar-width: thin;
-    scrollbar-color: #0048FF rgb(239, 239, 239); /* thumb color, track color */
+    scrollbar-color: black rgb(239, 239, 239); /* thumb color, track color */
 
 }
 
