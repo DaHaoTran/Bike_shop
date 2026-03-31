@@ -27,6 +27,10 @@ export default function RootLayout({ children }) {
   if (currentPageState == null) return;
   return (
     <html lang="en">
+      <head>
+        <link rel="stylesheet" href="/nprogress.css" />
+        <script src="/nprogress.js" />
+      </head>
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         {currentPageState == pageState[0] ? (
           <StoreProvider>

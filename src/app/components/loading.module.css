@@ -1,0 +1,13 @@
+.loading_container {
+    width: 100%;
+    height: 50vw;
+    background-color: rgb(111, 110, 110);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}   
+
+.image_loading {
+    width: 15% !important;
+    height: 27% !important;
+}

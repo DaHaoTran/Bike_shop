@@ -1,5 +1,5 @@
 "use client"
-import React, { useEffect, useState } from 'react';
+import React, { Suspense, useEffect, useState } from 'react';
 import styles from './layout_provider.module.css';
 import {
   Collapse,
@@ -24,13 +24,16 @@ import { addDetailS } from '../features/bike_details/details_slice';
 import { useDispatch, useSelector } from 'react-redux';
 import { getFirmList, getBikeList, getDetailList } from '../methods/list';
 import ChatForm from '../components/chat_form';
+import Loading from '../components/loading';
+import nProgress from 'nprogress';
+import Router from 'next/router';
 
 export default function LayoutProvider({ children }) {
   const router = useRouter();
   const dispatch = useDispatch();
   const [isOpen, setIsOpen] = useState(false);
   const [isChatOpen, setIsChatOpen] = useState(false);
-  const { firms }= useSelector(x => x.firm);
+  const { firms } = useSelector(x => x.firm);
   const { details } = useSelector(x => x.details);
   const [names, setNames] = useState([]);
   const toggle = () => setIsOpen(!isOpen);
@@ -38,6 +41,10 @@ export default function LayoutProvider({ children }) {
   const { data: bikeData, error: bikeError, isLoading: bikeLoading } = getBikeList();
   const { data: firmData, error: firmError, isLoading: firmLoading } = getFirmList();
   const { data: detailData, error: detailError, isLoading: detailLoading } = getDetailList();
+
+  Router.events.on('routeChangeStart', () => NProgress.start());
+  Router.events.on('routeChangeComplete', () => NProgress.done());
+  Router.events.on('routeChangeError', () => NProgress.done());
 
   const onPriceSelectionClick = async () => {
     const { value: fruit } = await Swal.fire({
@@ -101,7 +108,7 @@ export default function LayoutProvider({ children }) {
   }
 
   useEffect(() => {
-    if(!bikeData || !firmData || !detailData) return
+    if (!bikeData || !firmData || !detailData) return
 
     dispatch(addBikeS(bikeData));
     dispatch(addFirmS(firmData));
@@ -109,55 +116,57 @@ export default function LayoutProvider({ children }) {
   }, [bikeData, firmData, detailData])
 
   useEffect(() => {
-    if(!firms) return;
+    if (!firms) return;
     firms.forEach((x) => {
       const name = x.name;
-      setNames({[name]: name, ...names});
+      setNames({ [name]: name, ...names });
     })
   }, [firms])
 
   useEffect(() => {
-    if(!bikeError || !firmError || !detailError) return
+    if (!bikeError || !firmError || !detailError) return
 
     router.push(`/pages/errors/${500}`)
 
   }, [bikeError, firmError, detailError])
 
   return (
-    <div>
-      <nav className={styles.nav}>
-        <Navbar expand='md' fixed='top'>
-          <NavbarBrand onClick={x => onHomeClick()}><h2><strong>Bike shop</strong></h2></NavbarBrand>
-          <NavbarToggler onClick={toggle} />
-          <Collapse isOpen={isOpen} navbar>
-            <Nav className="me-auto w-100 d-flex justify-content-center" navbar>
-              <NavItem>
-                <NavLink className={styles.nav_link} onClick={x => onReviewClick()}>Giới thiệu</NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink className={styles.nav_link} onClick={x => onPriceSelectionClick()}>Trong tầm giá</NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink className={styles.nav_link} onClick={x => onFirmSelectionClick()}>Tên sản phẩm</NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink className={styles.nav_link} href="#bike_types">Loại xe</NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink className={styles.nav_link} onClick={(x => onCartClick())}>Giỏ hàng</NavLink>
-              </NavItem>
-            </Nav>
-            {/* <NavbarText>Simple Text</NavbarText> */}
-          </Collapse>
-        </Navbar>
-      </nav>
-      <article>{children}</article>
-      {/* chat form button */}
-      <div className={styles.show_widget} onClick={x => chatToggle()}><IoChatbubbleOutline size='40' /><div></div></div>
-      {/* chat form */}
-      <ChatForm isVisible={isChatOpen} />
-      {/* footer */}
-      <footer className={styles.footer}><h4>No coppyright</h4></footer>
-    </div>
+    <Suspense fallback={<Loading />}>
+      <div>
+        <nav className={styles.nav}>
+          <Navbar expand='md' fixed='top'>
+            <NavbarBrand onClick={x => onHomeClick()}><h2><strong>Bike shop</strong></h2></NavbarBrand>
+            <NavbarToggler onClick={toggle} />
+            <Collapse isOpen={isOpen} navbar>
+              <Nav className="me-auto w-100 d-flex justify-content-center" navbar>
+                <NavItem>
+                  <NavLink className={styles.nav_link} onClick={x => onReviewClick()}>Giới thiệu</NavLink>
+                </NavItem>
+                <NavItem>
+                  <NavLink className={styles.nav_link} onClick={x => onPriceSelectionClick()}>Trong tầm giá</NavLink>
+                </NavItem>
+                <NavItem>
+                  <NavLink className={styles.nav_link} onClick={x => onFirmSelectionClick()}>Tên sản phẩm</NavLink>
+                </NavItem>
+                <NavItem>
+                  <NavLink className={styles.nav_link} href="#bike_types">Loại xe</NavLink>
+                </NavItem>
+                <NavItem>
+                  <NavLink className={styles.nav_link} onClick={(x => onCartClick())}>Giỏ hàng</NavLink>
+                </NavItem>
+              </Nav>
+              {/* <NavbarText>Simple Text</NavbarText> */}
+            </Collapse>
+          </Navbar>
+        </nav>
+        <article>{children}</article>
+        {/* chat form button */}
+        <div className={styles.show_widget} onClick={x => chatToggle()}><IoChatbubbleOutline size='40' /><div></div></div>
+        {/* chat form */}
+        <ChatForm isVisible={isChatOpen} />
+        {/* footer */}
+        <footer className={styles.footer}><h4>No coppyright</h4></footer>
+      </div>
+    </Suspense>
   )
 }
