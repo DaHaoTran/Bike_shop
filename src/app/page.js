@@ -9,12 +9,30 @@ import { useRouter } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
 import { addTypeS } from "./features/type/type_slice";
 import { getTypeList } from "./methods/list";
+import { MdAddToHomeScreen, MdChecklist } from "react-icons/md";
+import { FaMapLocationDot } from "react-icons/fa6";
+import IconInfor from "./components/icon_infor";
+import { LuMousePointerClick } from "react-icons/lu";
 
 export default function Home() {
   const router = useRouter();
   const dispatch = useDispatch();
   const { types } = useSelector(x => x.type);
   const { data, error, isLoading } = getTypeList(); 
+  const icons = [
+    {
+      component: <LuMousePointerClick size='60' />,
+      name: "Đăng ký mua xe"
+    },
+    {
+      component: <FaMapLocationDot size='60' />,
+      name: "Tìm đại lý"
+    },
+    {
+      component: <MdChecklist size='60' />,
+      name: "So sánh xe"
+    },
+  ]
 
   useEffect(() => {
     if(!data) return
@@ -66,6 +84,18 @@ export default function Home() {
           </div>
         </div>
         {/* End News section */}
+        {/* Other infor section */}
+        <div className={styles.other_infor_container}>
+          <h1 className="my-3 text-center"><strong>Tư vấn mua xe</strong></h1>
+          <div className={styles.icon_container}>
+            <div className="d-flex justify-content-center">
+              {icons.map((x, index) => (
+                <div className="w-100 mx-3 ms-5" key={index}><IconInfor iconComponent={x.component} name={x.name} /></div>
+              ))}
+            </div>
+          </div>
+        </div>
+        {/* End Other infor section */}
       </div>
     </Suspense>
   );

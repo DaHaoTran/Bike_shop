@@ -108,6 +108,17 @@ a.secondary {
   border-radius: 10px;
 }
 
+.other_infor_container {
+  margin-bottom: 150px;
+}
+
+.icon_container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 /* Enable hover only on non-touch devices */
 @media (hover: hover) and (pointer: fine) {
   a.primary:hover {
