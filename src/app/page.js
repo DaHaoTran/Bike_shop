@@ -90,7 +90,7 @@ export default function Home() {
           <div className={styles.icon_container}>
             <div className="d-flex justify-content-center">
               {icons.map((x, index) => (
-                <div className="w-100 mx-3 ms-5" key={index}><IconInfor iconComponent={x.component} name={x.name} /></div>
+                <div className="w-100 mx-3 ms-lg-5" key={index}><IconInfor iconComponent={x.component} name={x.name} /></div>
               ))}
             </div>
           </div>
